@@ -14,35 +14,35 @@ import com.example.demo.model.User;
 @Service
 public class UserService {
     @Autowired
-    private UserMapper myMapper;
+    private UserMapper userMapper;
 
     public List<User> getAllUsers() {
-        return myMapper.getUsers();
+        return userMapper.getUsers();
     }
 
     public User getUserById(Long id) {
-        return myMapper.getUserById(id);
+        return userMapper.getUserById(id);
     }
 
     @Transactional
     public void addUser(User user) {
-        myMapper.insertUser(user);
+        userMapper.insertUser(user);
     }
     
     public void addUser1(User user) throws Exception {
-    	myMapper.insertUser(user);
+    	userMapper.insertUser(user);
     	throw new RuntimeException("Insert even an error occurs");
     }
     
     @Transactional
     public void addUser2(User user) throws Exception {
-    	myMapper.insertUser(user);
+    	userMapper.insertUser(user);
     	throw new RuntimeException("Rollback inserted record!");
     }
     
     @Transactional
     public void addUser3(User user) throws Exception {
-    	myMapper.insertUser(user);
+    	userMapper.insertUser(user);
     	throw new MyException("Rollback inserted record!");
     }
     
@@ -50,16 +50,16 @@ public class UserService {
 
     @Transactional
     public void updateUser(Long id, User user) {
-        User existingUser = myMapper.getUserById(id);
+        User existingUser = userMapper.getUserById(id);
         if (existingUser != null) {
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
-            myMapper.updateUser(existingUser);
+            userMapper.updateUser(existingUser);
         }
     }
 
     @Transactional
     public void deleteUser(Long id) {
-        myMapper.deleteUser(id);
+        userMapper.deleteUser(id);
     }
 }
